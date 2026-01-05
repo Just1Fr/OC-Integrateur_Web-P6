@@ -186,3 +186,34 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Added */
+body {
+	background: #FFFEF8;
+}
+
+.filters {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	margin: 50px 0;
+}
+
+.filter {
+	box-sizing: border-box;
+	min-width: 100px;
+	padding: 10px 15px;
+	text-align: center;
+	color: #1D6154;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-size: 16px;
+	font-weight: 700;
+	cursor: default;
+}
+
+.filter:hover,
+.filter.selected {
+	color: white;
+	background-color: #1D6154;
+}
