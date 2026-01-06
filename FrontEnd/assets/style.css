@@ -191,6 +191,11 @@ body {
 	background: #FFFEF8;
 }
 
+a {
+	text-decoration: none;
+	color: unset;
+}
+
 .filters {
 	display: flex;
 	gap: 10px;
@@ -216,4 +221,63 @@ body {
 .filter.selected {
 	color: white;
 	background-color: #1D6154;
+}
+
+/* Login page */
+#login-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;
+}
+
+#login-section .title {
+	margin: 10px 0;
+}
+
+#login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	align-items: center;
+}
+
+.input {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.input input {
+	box-sizing: border-box;
+	width: 379px;
+	height: 51px;
+	padding: 5px;
+	border: none;
+	box-shadow: rgba(0,0,0,.09) 0 4px 14px 0;
+}
+
+.input label,
+#reset-password {
+	color: #3D3D3D;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 500;
+}
+
+#submit {
+	width: 179px;
+	height: 36px;
+	margin-top: 10px;
+	border-radius: 60px;
+	border: none;
+	color: white;
+	background-color: #1D6154;
+	font-family: 'Syne';
+	font-size: 14px;
+	font-weight: 700;
+}
+
+#reset-password {
+	text-decoration: underline;
 }
