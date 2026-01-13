@@ -1,5 +1,6 @@
-
+// Check login credentials
 async function tryLogin(email, password) {
+    // Send request to API
     const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: {
@@ -11,20 +12,25 @@ async function tryLogin(email, password) {
             "password": password
         })
     });
+
+    // Handle response from API
     switch (response.status) {
         case 200:
-            console.log("User logged in");
             const result = await response.json();
-            console.log(result);
+            localStorage.setItem('token', result.token);
+            localStorage.setItem('userId', result.userId);
+            window.location.href = 'index.html';
             break;
+
         case 401:
-            console.log("Incorrect password");
-            break;
         case 404:
-            console.log("User not found");
+            document.querySelector("#login-form > .warning")
+                .innerText = "Erreur dans l’identifiant ou le mot de passe.";
             break;
+
         default:
-            console.error("Unknown error");
+            document.querySelector("#login-form > .warning")
+                .innerText = "Erreur.";
             break;
     }
 }
@@ -40,17 +46,32 @@ const submitBtn = document.getElementById("submit");
 submitBtn.addEventListener("click", event => {
     event.preventDefault();
 
+    // Verify if email is valid
     const email = document.getElementById("email").value;
     if (!isEmailValid(email)) {
         console.error("Email invalide");
+        document.querySelector("#login-form > .input.email > .warning")
+            .innerText = "Email invalide.";
         return
+    } else {
+        document.querySelector("#login-form > .input.email > .warning")
+            .innerText = "";
     }
 
+    // Verify if password is not empty
     const password = document.getElementById("password").value;
     if (!password) {
         console.error("Mot de passe invalide");
+        document.querySelector("#login-form > .input.password > .warning")
+            .innerText = "Veuillez entrer un mot de passe.";
         return
+    } else {
+        document.querySelector("#login-form > .input.password > .warning")
+            .innerText = "";
     }
+
+    document.querySelector("#login-form > .warning")
+        .innerText = "";
 
     tryLogin(email, password);
 });

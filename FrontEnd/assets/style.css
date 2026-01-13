@@ -191,16 +191,27 @@ body {
 	background: #FFFEF8;
 }
 
-a {
-	text-decoration: none;
-	color: unset;
+nav li {
+	cursor: pointer;
+}
+
+#portfolio .title {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+}
+
+#modify-btn {
+	height: fit-content;
+	margin-top: 0.6em;
+	cursor: pointer;
 }
 
 .filters {
 	display: flex;
 	gap: 10px;
 	justify-content: center;
-	margin: 50px 0;
+	margin-bottom: 50px;
 }
 
 .filter {
@@ -263,6 +274,10 @@ a {
 	font-family: 'Work Sans';
 	font-size: 14px;
 	font-weight: 500;
+}
+
+#login-form .warning {
+	color: #D00;
 }
 
 #submit {

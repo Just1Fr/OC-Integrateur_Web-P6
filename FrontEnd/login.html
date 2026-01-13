@@ -26,14 +26,17 @@
     <section id="login-section">
         <h2 class="title">Log In</h2>
         <form id="login-form">
-            <div class="input">
+            <div class="input email">
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email">
+                <span class="warning"></span>
             </div>
-            <div class="input">
+            <div class="input password">
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password">
+                <span class="warning"></span>
             </div>
+            <span class="warning"></span>
             <button type="submit" id="submit">Se connecter</button>
         </form>
         <a href="#" id="reset-password">Mot de passe oublié</a>
