@@ -1,4 +1,8 @@
-// Check login credentials
+// Redirect to homepage if already logged in
+if (localStorage.getItem('token')) {
+    window.location.href = 'index.html';
+}
+
 async function tryLogin(email, password) {
     // Send request to API
     const response = await fetch("http://localhost:5678/api/users/login", {
@@ -24,13 +28,15 @@ async function tryLogin(email, password) {
 
         case 401:
         case 404:
-            document.querySelector("#login-form > .warning")
-                .innerText = "Erreur dans l’identifiant ou le mot de passe.";
+            const warning = document.querySelector("#login-form > .input.submit > .warning");
+            warning.innerText = "Erreur dans l’identifiant ou le mot de passe";
+            warning.style.display = "block";
             break;
 
         default:
-            document.querySelector("#login-form > .warning")
-                .innerText = "Erreur.";
+            const error = document.querySelector("#login-form > .input.submit > .warning");
+            error.innerText = "Erreur";
+            error.style.display = "block";
             break;
     }
 }
@@ -49,29 +55,24 @@ submitBtn.addEventListener("click", event => {
     // Verify if email is valid
     const email = document.getElementById("email").value;
     if (!isEmailValid(email)) {
-        console.error("Email invalide");
         document.querySelector("#login-form > .input.email > .warning")
-            .innerText = "Email invalide.";
+            .style.display = "block";
         return
     } else {
         document.querySelector("#login-form > .input.email > .warning")
-            .innerText = "";
+            .style.display = "none";
     }
 
     // Verify if password is not empty
     const password = document.getElementById("password").value;
     if (!password) {
-        console.error("Mot de passe invalide");
         document.querySelector("#login-form > .input.password > .warning")
-            .innerText = "Veuillez entrer un mot de passe.";
+            .style.display = "block";
         return
     } else {
         document.querySelector("#login-form > .input.password > .warning")
-            .innerText = "";
+            .style.display = "none";
     }
-
-    document.querySelector("#login-form > .warning")
-        .innerText = "";
 
     tryLogin(email, password);
 });
