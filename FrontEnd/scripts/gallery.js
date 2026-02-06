@@ -22,7 +22,7 @@ export function createWorkItem(title, imgSrc, id) {
 
 export async function fillGallery(categoryId = 0) {
     const gallery = document.querySelector(".gallery");
-    const works = await getWorks();
+    const works = !window.works ? await getWorks() : window.works;
     if (works) {
         gallery.innerHTML = "";
         // Default "All" filter
@@ -72,7 +72,7 @@ function toggleFilter(event) {
 
 export async function createFilterSection() {
     const filters = document.querySelector(".filters");
-    const categories = await getCategories();
+    const categories = !window.categories ? await getCategories() : window.categories;
     if (categories) {
         filters.innerHTML = "";
         filters.appendChild(

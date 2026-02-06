@@ -41,7 +41,7 @@ export async function deleteWorkModal() {
     gallery.classList = "box gallery"
 
     // Works in modal gallery
-    const works = await getWorks();
+    const works = !window.works ? await getWorks() : window.works;
     for (let i = 0; i < works.length; i++) {
         const id = works[i].id;
         const item = document.createElement("div");
@@ -180,7 +180,7 @@ async function addWorkModal() {
 
     // Category selection
     const selectInput = document.getElementById("new-work-category");
-    const categories = await getCategories();
+    const categories = !window.categories ? await getCategories() : window.categories;
     categories.forEach(category => {
         const option =  createCategoryOption(category.id, category.name);
         selectInput.appendChild(option);

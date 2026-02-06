@@ -44,6 +44,13 @@ export async function deleteWork(id) {
             throw new Error(`Error ${response.status}`);
         }
 
+        if (window.works) {
+            const i = window.works.findIndex(item => item.id === id);
+            if (i !== -1) {
+                window.works.splice(i, 1);
+            }
+        }
+
         return true
     }
 }
@@ -70,7 +77,16 @@ export async function uploadWork(title, categoryId, image) {
                 throw new Error(`Error ${response.status}`);
             }
 
-            return await response.json();
+            const result = await response.json();
+            
+            if (window.works) {
+                const categories = !window.categories ? await getCategories() : window.categories;
+                const i = categories.findIndex(item => item.id == result.categoryId);
+                result.category = categories[i];
+                window.works.push(result);
+            }
+
+            return result;
 
         }  catch {
             console.error("Failed to upload work");
