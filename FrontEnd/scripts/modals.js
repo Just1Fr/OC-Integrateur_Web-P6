@@ -117,22 +117,34 @@ function checkInputs(form) {
         allFilled = !!inputs[i].value;
         i++;
     }
+    
     document.getElementById("modal-main-btn").disabled = !allFilled;
 }
 
-function previewImg(file, preview) {
-    const reader = new FileReader();
+function verifyImgExt(fileName) {
+    const pattern = /\.(png|jpg|jpeg)$/;
+    return pattern.test(fileName);
+}
 
-    reader.addEventListener("load", () => {
-        preview.src = reader.result;
-        preview.style.display = "block";
-    });
+function previewImg(input, preview) {
+    const file = input.files[0];
 
-    if (file) {
-        reader.readAsDataURL(file); // Read as a Base64 string
-        document.querySelectorAll("#add-picture-form .hideOnPreview")
-            .forEach(elem => {elem.style.display = "none"});
-        checkInputs(document.getElementById("add-picture-form"));
+    if (verifyImgExt(file.name)) {
+        const reader = new FileReader();
+
+        reader.addEventListener("load", () => {
+            preview.src = reader.result;
+            preview.style.display = "block";
+        });
+
+        if (file) {
+            reader.readAsDataURL(file); // Read as a Base64 string
+            document.querySelectorAll("#add-picture-form .hideOnPreview")
+                .forEach(elem => {elem.style.display = "none"});
+            checkInputs(document.getElementById("add-picture-form"));
+        }
+    } else {
+        input.value = "";
     }
 }
 
@@ -177,7 +189,7 @@ async function addWorkModal() {
     // Image input
     const imgInput = document.getElementById("new-work-img");
     const imgPreview = document.getElementById("new-work-preview");
-    imgInput.addEventListener("change", () => {previewImg(imgInput.files[0], imgPreview)});
+    imgInput.addEventListener("change", () => {previewImg(imgInput, imgPreview)});
 
     // Title input
     const titleInput = document.getElementById("new-work-title");

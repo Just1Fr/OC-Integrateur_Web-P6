@@ -5,14 +5,19 @@ import {deleteWorkModal} from "/scripts/modals.js";
 checkLoginStatus();
 fillGallery();
 
-///////////////
-// Logged in //
-///////////////
+function checkLoginStatus() {
+    const token = localStorage.getItem("token");
 
-function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    location.reload();
+    if (token) {
+        loggedIn();
+    } else {
+        createFilterSection();
+        // Redirect to login page
+        document.getElementById("login-btn")
+            .addEventListener("click", () => {
+                window.location.href = '/pages/login.html';
+            });
+    }
 }
 
 function loggedIn() {
@@ -35,17 +40,8 @@ function loggedIn() {
     loginBtn.addEventListener("click", logout);
 }
 
-function checkLoginStatus() {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-        loggedIn();
-    } else {
-        createFilterSection();
-        // Redirect to login page
-        document.getElementById("login-btn")
-            .addEventListener("click", () => {
-                window.location.href = '/pages/login.html';
-            });
-    }
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    location.reload();
 }
