@@ -1,6 +1,6 @@
 // Redirect to homepage if already logged in
 if (localStorage.getItem('token')) {
-    window.location.href = 'index.html';
+    window.location.href = '/index.html';
 }
 
 async function tryLogin(email, password) {
@@ -23,7 +23,7 @@ async function tryLogin(email, password) {
             const result = await response.json();
             localStorage.setItem('token', result.token);
             localStorage.setItem('userId', result.userId);
-            window.location.href = 'index.html';
+            window.location.href = '/index.html';
         }
 
     }  catch {
